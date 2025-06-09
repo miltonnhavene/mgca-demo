@@ -14,4 +14,5 @@ import java.io.ByteArrayOutputStream;
 public interface RelatorioExportadorService {
 
     public ByteArrayInputStream gerarRelatorioSimples();
+    public ByteArrayInputStream gerarRelatorioGeral();
 }

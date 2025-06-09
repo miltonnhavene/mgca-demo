@@ -1,5 +1,6 @@
 package bau.dev.mgca.services.implments;
 
+import bau.dev.mgca.DTO.RelatorioProcessoResponseDTO;
 import bau.dev.mgca.entity.AvaliarProcessoEntity;
 import bau.dev.mgca.entity.DocumentoAnexoEntity;
 import bau.dev.mgca.entity.ProcessoCadastroEntity;
@@ -30,8 +31,37 @@ public class RelatorioExportadorServiceImplements implements RelatorioExportador
     private ProcessoCadastroRepository processoCadastroRepository;
     @Autowired
     private AvaliarProcessoRepository avaliarProcessoRepository;
+
     @Autowired
-    private ExportadorTransform exportadorTransform;
+    private AvaliarProcessoEntity avaliarProcessoEntity;
+
+    @Autowired
+    private RelatorioProcessoResponseDTO relatorioProcessoResponseDTO;
+
+    public ByteArrayInputStream gerarRelatorioGeral() {
+//       relatorioProcessoResponseDTO.setTotalAprovados(avaliarProcessoRepository.fi);
+//        long totalAprovados=relatorioProcessoResponseDTO.getTotalAprovados();
+        relatorioProcessoResponseDTO.setTotalAprovados(exportadorRepository.count());
+        relatorioProcessoResponseDTO.setTotalProcessosSubmetidos(processoCadastroRepository.count());
+        long totalProcessos= relatorioProcessoResponseDTO.getTotalProcessosSubmetidos();
+        long totalExportadores= relatorioProcessoResponseDTO.getTotalExportadores();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PdfWriter writer = new PdfWriter(out);
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+        document.add(new Paragraph("Relatório Simples de Processos"));
+        document.add(new Paragraph("Este é um exemplo básico de PDF gerado em tempo de execução."));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Numero de processos: "));
+        document.add(new Paragraph("Numero de processos Avaliados: "));
+        document.add(new Paragraph(" Um processo para exemplificar"));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Exportador: " ));
+        document.add(new Paragraph("Processo: "));
+        document.add(new Paragraph("Documentos: "));
+        return new ByteArrayInputStream(out.toByteArray());
+    }
     public ByteArrayInputStream gerarRelatorioSimples() {
         long id=1;
        // Optional<ProcessoCadastroEntity> optionalProcesso = processoCadastroRepository.findById(id);
@@ -66,6 +96,8 @@ public class RelatorioExportadorServiceImplements implements RelatorioExportador
 
         return new ByteArrayInputStream(out.toByteArray());
     }
+
+
 
 
 }
