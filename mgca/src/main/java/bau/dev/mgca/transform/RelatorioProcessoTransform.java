@@ -4,6 +4,7 @@ import bau.dev.mgca.DTO.RelatorioProcessoRequestDTO;
 import bau.dev.mgca.DTO.RelatorioProcessoResponseDTO;
 import bau.dev.mgca.config.enums.Decisao;
 import bau.dev.mgca.entity.AvaliarProcessoEntity;
+import bau.dev.mgca.entity.ProcessoCadastroEntity;
 import bau.dev.mgca.repository.AvaliarProcessoRepository;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,20 @@ public class RelatorioProcessoTransform {
         dto.setDataSubmissao(avaliarProcessoEntity.getProcessoCadastroEntity().getDataSubmissao());
 
         return dto;
+    }
+
+    public AvaliarProcessoEntity toEntity( RelatorioProcessoRequestDTO relatorioProcessoRequestDTO)
+    {
+        if(relatorioProcessoRequestDTO==null)
+        {
+            return null;
+        }
+        ProcessoCadastroEntity processoCadastroEntity = new ProcessoCadastroEntity();
+        AvaliarProcessoEntity avaliarProcessoEntity = new AvaliarProcessoEntity();
+        avaliarProcessoEntity.setEstado(relatorioProcessoRequestDTO.getEstado());
+
+       // avaliarProcessoEntity.setProcessoCadastroEntity();
+        return avaliarProcessoEntity;
     }
 
 

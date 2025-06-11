@@ -1,5 +1,6 @@
 package bau.dev.mgca.services;
 
+import bau.dev.mgca.DTO.RelatorioProcessoRequestDTO;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -15,4 +16,5 @@ public interface RelatorioExportadorService {
 
     public ByteArrayInputStream gerarRelatorioSimples();
     public ByteArrayInputStream gerarRelatorioGeral();
+    public ByteArrayInputStream gerarRelatorioParams(RelatorioProcessoRequestDTO relatorioProcessoRequestDTO);
 }
